@@ -2,7 +2,7 @@ from NumcGUI import runGUI
 from Convert import *
 
 def main() -> None:
-    print("\n\t+-------------------------+\n\t\tX-Num-Sys\n\t+-------------------------+\n")
+    print("\n\t+-------------------------+\n\t\tNum-Sys-Conv\n\t+-------------------------+\n")
     print("\t1. Convert to Decimal")
     print("\t2. Convert to None-Decimal") 
     print("\t3. Run GUI")
