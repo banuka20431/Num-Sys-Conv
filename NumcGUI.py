@@ -16,13 +16,14 @@ def main() -> None:
                 break
         else:
             if inputs['Input Base'] == '10':
-                output, _ = Convert.decimal_conv(inputs['Input Number'], inputs['Convert Base'])
+                output = Convert.decimal_conv(inputs['Input Number'], inputs['Convert Base'])
             else:
                 if inputs['Convert Base'] == '10':
-                    output, _ = Convert.nondecimal_conv(inputs['Input Number'], inputs['Convert Base'])
+                    output = Convert.to_decimal_conv(inputs['Input Number'], inputs['Input Base'])
                 else:
-                    decimal_value, _ = Convert.nondecimal_conv(inputs['Input Number'], inputs['Convert Base'])
-                    output, _ = Convert.decimal_conv(decimal_value, inputs['Convert Base'])
+                    decimal_value = Convert.to_decimal_conv(inputs['Input Number'], inputs['Input Base'])
+                    decimal_value = decimal_value.split(':')[1].strip()
+                    output = Convert.decimal_conv(decimal_value, inputs['Convert Base'])
             output_label['foreground'] = 'lightgreen'
             output_var.set(output)
                     
@@ -69,13 +70,10 @@ def main() -> None:
     output_label = ttk.Label(master=output_frame, textvariable=output_var, font='Arial 11 bold', anchor='center', padding=10, borderwidth=1, relief=tk.RIDGE)
     output_label.grid(column=0, row=1, columnspan=2, sticky='news')
     
-if __name__ == "__main__":
     
-        WINDOW_OFFSET = 50
-        LABEL_FONT = 'Courier 12 bold'
-        ENTRY_WIDTH = 30 
-        BTN_MARGIN = 20
-
+def runGUI():    
+        global ROOT_WINDOW
+        
         ROOT_WINDOW = tk.Tk()
         ROOT_WINDOW_WIDTH = 450
         ROOT_WINDOW_HEIGHT = 480
@@ -90,31 +88,10 @@ if __name__ == "__main__":
 
         ROOT_WINDOW.mainloop()
 
+WINDOW_OFFSET = 50
+LABEL_FONT = 'Courier 12 bold'
+ENTRY_WIDTH = 30 
+BTN_MARGIN = 20
 
-'''
-    else:
-        print("\nError! Invalid Selection\n")
-
-
-
-    print("\n\t+-------------------------+\n\t\tX-Num-Sys\n\t+-------------------------+\n")
-    print("\t1. Convert to Decimal")
-    print("\t2. Convert to None-Decimal") 
-    print("\t3. Run GUI")
-    print("\n>_ ", end='')
-    option = input()
-    
-    if option in("1", "2") :
-        
-        print("\nEnter the number : ", end='')
-        number = input()
-        print("Enter the base : ", end='')
-        base = input()
-        if option == "1":
-            output, error_occurred = Convert.nondecimal_conv(number, base)
-        else:
-            output, error_occurred = Convert.decimal_conv(number, base)
-        print(f"\n{output}\n")
-        
-    elif option == "3":
-''' 
+if __name__ == "__main__":
+    runGUI()

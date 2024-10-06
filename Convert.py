@@ -84,6 +84,7 @@ class Convert:
         output_str = ''
         int_out: int = 0
         float_out = '.00'
+        is_float = False
         
         if not validate_input_number(number):
             output_str = " Error! invalid input for ' Number ' "
@@ -92,7 +93,7 @@ class Convert:
                 output_str = " Error! invalid input for ' Base ' "
             else:
                 if '.' in number:
-                    is_float = False
+                    is_float = True
                     float_point_index = number.index('.')
                 
         base = int(base)
