@@ -24,7 +24,12 @@ def main() -> None:
                     decimal_value = Convert.to_decimal_conv(inputs['Input Number'], inputs['Input Base'])
                     decimal_value = decimal_value.split(':')[1].strip()
                     output = Convert.decimal_conv(decimal_value, inputs['Convert Base'])
-            output_label['foreground'] = 'lightgreen'
+                    
+            if 'Error!' in output:
+                output_label['foreground'] = 'red'
+            else:
+                output_label['foreground'] = 'lightgreen'
+                
             output_var.set(output)
                     
   
@@ -49,7 +54,7 @@ def main() -> None:
     input_base_entry = ttk.Entry(master=input_frame, textvariable=input_base_var, width=ENTRY_WIDTH, justify='center')
     input_base_entry.pack(pady=5)
     
-    conv_base_label = ttk.Label(master=input_frame, text='Enter Base for the Convertion', font=LABEL_FONT, anchor='center', foreground='white', background='black', padding=8)
+    conv_base_label = ttk.Label(master=input_frame, text='Enter a Base for the Convertion', font=LABEL_FONT, anchor='center', foreground='white', background='black', padding=8)
     conv_base_label.pack(pady=5, fill='x')
     
     conv_base_entry = ttk.Entry(master=input_frame, textvariable=conv_base_var, width=ENTRY_WIDTH, justify='center')
@@ -67,7 +72,7 @@ def main() -> None:
     clear_button = ttk.Button(master=output_frame, padding=BTN_MARGIN, text='Clear', command=lambda: print("Clear"))
     clear_button.grid(column=1, row=0, sticky='we', padx=3)
     
-    output_label = ttk.Label(master=output_frame, textvariable=output_var, font='Arial 11 bold', anchor='center', padding=10, borderwidth=1, relief=tk.RIDGE)
+    output_label = ttk.Label(master=output_frame, textvariable=output_var, font='Arial 11 bold', anchor='center', padding=10, borderwidth=1, relief=tk.RIDGE, background='black')
     output_label.grid(column=0, row=1, columnspan=2, sticky='news')
     
     
@@ -81,7 +86,7 @@ def runGUI():
         ROOT_WINDOW_Y_POSITION = ROOT_WINDOW.winfo_screenheight() // 2 - ROOT_WINDOW_HEIGHT // 2 - WINDOW_OFFSET
         ROOT_WINDOW.geometry(f"{ROOT_WINDOW_WIDTH}x{ROOT_WINDOW_HEIGHT}+{ROOT_WINDOW_X_POSITION}+{ROOT_WINDOW_Y_POSITION}")
         ROOT_WINDOW.title("Number Converter")
-        ROOT_WINDOW.resizable(False, False)
+        ROOT_WINDOW.resizable(True, False)
         ROOT_WINDOW.attributes('-topmost', True)
 
         main()

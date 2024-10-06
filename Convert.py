@@ -23,7 +23,6 @@ class Convert:
             return output
 
         def validate_input_number(number: str) -> bool:
-            
             valid_chars = ('A', 'a', 'B', 'b','C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 
                             'G', 'g', 'H', 'h', 'I', 'i', 'J', 'j', 'K', 'k', 'L', 
                             'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p', 'Q', 'q',
@@ -32,7 +31,7 @@ class Convert:
                             '4', '5', '6' , '7', '8', '9'
                             )  
             
-            if number.count('.') not in (0, 1):
+            if list(number).count('.') not in (0, 1):
                 return False
             else:
                 if number[-1] == '.' or number[0] == '.':
@@ -92,29 +91,29 @@ class Convert:
             if not validate_base(base):
                 output_str = " Error! invalid input for ' Base ' "
             else:
-                if '.' in number:
+                if '.' in list(number):
                     is_float = True
                     float_point_index = number.index('.')
+                    
+                base = int(base)
                 
-        base = int(base)
-        
-        if not range_check(number, base):
-            output_str = " \tError! invalid input for ' Base '\nBase must be greater than any index of the number "
-        else:
-            number = assign_values(list(number), base)
-            if not is_float: 
-                number = [int(i) for i in number]   
-                int_out = int_conv(number, base)
-                output_str = f"Base 10 Number :  {int_out}" + float_out     
-            else:
-                number = [int(i) if number.index(i) != float_point_index else '.' for i in number]
-                int_part, float_part = number[:number.index('.')], number[number.index('.')+1:]
-                int_out = int_conv(int_part, base)
-                float_out = float_conv(float_part, base)
-                output_str = f"Base 10 Number :  {int_out+float_out}"
-                                                                        
+                if not range_check(number, base):
+                    output_str = " \tError! invalid input for ' Base '\nBase must be greater than any index of the number "
+                else:
+                    number = assign_values(list(number), base)
+                    if not is_float: 
+                        number = [int(i) for i in number]   
+                        int_out = int_conv(number, base)
+                        output_str = f"Base 10 Number :  {int_out}" + float_out     
+                    else:
+                        number = [int(i) if number.index(i) != float_point_index else '.' for i in number]
+                        int_part, float_part = number[:number.index('.')], number[number.index('.')+1:]
+                        int_out = int_conv(int_part, base)
+                        float_out = float_conv(float_part, base)
+                        output_str = f"Base 10 Number :  {int_out+float_out}"
+                                                                                
         return output_str
-    
+            
     
 
     def decimal_conv(number, base):
@@ -205,16 +204,17 @@ class Convert:
                 if not number.count('.')  == 0:
                     float_number = True
         
-        base = int(base)
-        if not float_number:
-            int_part = int_conv(int(number), base)
-            output_str = f"Base {base} number : " + int_part + float_part
-        else:
-            int_part, float_part = number.split('.')
-            int_out = int_conv(int(int_part), base)
-            float_out = float_conv(int(float_part), base)
-            float_out = ''.join(float_out)
-            output_str = f"Base {base} number : " + int_out + '.' + float_out
-            
+                base = int(base)
+                
+                if not float_number:
+                    int_part = int_conv(int(number), base)
+                    output_str = f"Base {base} number : " + int_part + float_part
+                else:
+                    int_part, float_part = number.split('.')
+                    int_out = int_conv(int(int_part), base)
+                    float_out = float_conv(int(float_part), base)
+                    float_out = ''.join(float_out)
+                    output_str = f"Base {base} number : " + int_out + '.' + float_out
+                    
         return output_str
     
